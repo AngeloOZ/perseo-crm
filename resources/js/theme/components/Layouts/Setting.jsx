@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleAnimation, toggleLayout, toggleMenu, toggleNavbar, toggleRTL, toggleTheme, toggleSemidark } from '../../store/themeConfigSlice';
+import { toggleAnimation, toggleLayout, toggleMenu, toggleNavbar, toggleTheme, toggleSemidark } from '../../store/themeConfigSlice';
 import IconSettings from '../Icon/IconSettings';
 import IconX from '../Icon/IconX';
 import IconSun from '../Icon/IconSun';
@@ -36,35 +36,32 @@ const Setting = () => {
                             <IconX className="w-5 h-5" />
                         </button>
 
-                        <h4 className="mb-1 dark:text-white">TEMPLATE CUSTOMIZER</h4>
-                        <p className="text-white-dark">Set preferences that will be cookied for your live preview demonstration.</p>
+                        <h4 className="mb-1 dark:text-white">PERSONALIZAR PLANTILLA</h4>
                     </div>
 
                     <div className="border border-dashed border-white-light dark:border-[#1b2e4b] rounded-md mb-3 p-3">
-                        <h5 className="mb-1 text-base dark:text-white leading-none">Color Scheme</h5>
-                        <p className="text-white-dark text-xs">Overall light or dark presentation.</p>
-                        <div className="grid grid-cols-3 gap-2 mt-3">
+                        <h5 className="mb-1 text-base dark:text-white leading-none">Esquema de colores</h5>
+                        <div className="grid grid-cols-3 gap-2 mt-4">
                             <button type="button" className={`${themeConfig.theme === 'light' ? 'btn-primary' : 'btn-outline-primary'} btn`} onClick={() => dispatch(toggleTheme('light'))}>
                                 <IconSun className="w-5 h-5 shrink-0 ltr:mr-2 rtl:ml-2" />
-                                Light
+                                Claro
                             </button>
 
                             <button type="button" className={`${themeConfig.theme === 'dark' ? 'btn-primary' : 'btn-outline-primary'} btn`} onClick={() => dispatch(toggleTheme('dark'))}>
                                 <IconMoon className="w-5 h-5 shrink-0 ltr:mr-2 rtl:ml-2" />
-                                Dark
+                                Oscuro
                             </button>
 
                             <button type="button" className={`${themeConfig.theme === 'system' ? 'btn-primary' : 'btn-outline-primary'} btn`} onClick={() => dispatch(toggleTheme('system'))}>
                                 <IconLaptop className="w-5 h-5 shrink-0 ltr:mr-2 rtl:ml-2" />
-                                System
+                                Sistema
                             </button>
                         </div>
                     </div>
 
                     <div className="border border-dashed border-white-light dark:border-[#1b2e4b] rounded-md mb-3 p-3">
-                        <h5 className="mb-1 text-base dark:text-white leading-none">Navigation Position</h5>
-                        <p className="text-white-dark text-xs">Select the primary navigation paradigm for your app.</p>
-                        <div className="grid grid-cols-3 gap-2 mt-3">
+                        <h5 className="mb-1 text-base dark:text-white leading-none">Posición de la navegación</h5>
+                        <div className="grid grid-cols-3 gap-2 mt-4">
                             <button type="button" className={`${themeConfig.menu === 'horizontal' ? 'btn-primary' : 'btn-outline-primary'} btn`} onClick={() => dispatch(toggleMenu('horizontal'))}>
                                 Horizontal
                             </button>
@@ -78,7 +75,7 @@ const Setting = () => {
                                 className={`${themeConfig.menu === 'collapsible-vertical' ? 'btn-primary' : 'btn-outline-primary'} btn`}
                                 onClick={() => dispatch(toggleMenu('collapsible-vertical'))}
                             >
-                                Collapsible
+                                Plegable
                             </button>
                         </div>
                         <div className="mt-5 text-primary">
@@ -89,47 +86,31 @@ const Setting = () => {
                                     checked={themeConfig.semidark === true || themeConfig.semidark === 'true'}
                                     onChange={(e) => dispatch(toggleSemidark(e.target.checked))}
                                 />
-                                <span>Semi Dark (Sidebar & Header)</span>
+                                <span>Semi Oscuro (Barra lateral y Cabecera)</span>
                             </label>
                         </div>
                     </div>
 
                     <div className="border border-dashed border-white-light dark:border-[#1b2e4b] rounded-md mb-3 p-3">
-                        <h5 className="mb-1 text-base dark:text-white leading-none">Layout Style</h5>
-                        <p className="text-white-dark text-xs">Select the primary layout style for your app.</p>
-                        <div className="flex gap-2 mt-3">
+                        <h5 className="mb-1 text-base dark:text-white leading-none">Estilo de Diseño</h5>
+                        <div className="flex gap-2 mt-4">
                             <button
                                 type="button"
                                 className={`${themeConfig.layout === 'boxed-layout' ? 'btn-primary' : 'btn-outline-primary'} btn flex-auto`}
                                 onClick={() => dispatch(toggleLayout('boxed-layout'))}
                             >
-                                Box
+                                Caja
                             </button>
 
                             <button type="button" className={`${themeConfig.layout === 'full' ? 'btn-primary' : 'btn-outline-primary'} btn flex-auto`} onClick={() => dispatch(toggleLayout('full'))}>
-                                Full
+                                Completo
                             </button>
                         </div>
                     </div>
 
                     <div className="border border-dashed border-white-light dark:border-[#1b2e4b] rounded-md mb-3 p-3">
-                        <h5 className="mb-1 text-base dark:text-white leading-none">Direction</h5>
-                        <p className="text-white-dark text-xs">Select the direction for your app.</p>
-                        <div className="flex gap-2 mt-3">
-                            <button type="button" className={`${themeConfig.rtlClass === 'ltr' ? 'btn-primary' : 'btn-outline-primary'} btn flex-auto`} onClick={() => dispatch(toggleRTL('ltr'))}>
-                                LTR
-                            </button>
-
-                            <button type="button" className={`${themeConfig.rtlClass === 'rtl' ? 'btn-primary' : 'btn-outline-primary'} btn flex-auto`} onClick={() => dispatch(toggleRTL('rtl'))}>
-                                RTL
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="border border-dashed border-white-light dark:border-[#1b2e4b] rounded-md mb-3 p-3">
-                        <h5 className="mb-1 text-base dark:text-white leading-none">Navbar Type</h5>
-                        <p className="text-white-dark text-xs">Sticky or Floating.</p>
-                        <div className="mt-3 flex items-center gap-3 text-primary">
+                        <h5 className="mb-1 text-base dark:text-white leading-none">Tipo de Barra de Navegación</h5>
+                        <div className="mt-5 flex items-center gap-3 text-primary">
                             <label className="inline-flex mb-0">
                                 <input
                                     type="radio"
@@ -138,7 +119,7 @@ const Setting = () => {
                                     className="form-radio"
                                     onChange={() => dispatch(toggleNavbar('navbar-sticky'))}
                                 />
-                                <span>Sticky</span>
+                                <span>Pegajoso</span>
                             </label>
                             <label className="inline-flex mb-0">
                                 <input
@@ -148,7 +129,7 @@ const Setting = () => {
                                     className="form-radio"
                                     onChange={() => dispatch(toggleNavbar('navbar-floating'))}
                                 />
-                                <span>Floating</span>
+                                <span>Flotante</span>
                             </label>
                             <label className="inline-flex mb-0">
                                 <input
@@ -158,17 +139,17 @@ const Setting = () => {
                                     className="form-radio"
                                     onChange={() => dispatch(toggleNavbar('navbar-static'))}
                                 />
-                                <span>Static</span>
+                                <span>Estático</span>
                             </label>
                         </div>
                     </div>
 
                     <div className="border border-dashed border-white-light dark:border-[#1b2e4b] rounded-md mb-3 p-3">
-                        <h5 className="mb-1 text-base dark:text-white leading-none">Router Transition</h5>
-                        <p className="text-white-dark text-xs">Animation of main content.</p>
-                        <div className="mt-3">
+                        <h5 className="mb-2 text-base dark:text-white leading-none">Transición de navegación</h5>
+                        <p className="text-white-dark text-xs">Animación del contenido principal.</p>
+                        <div className="mt-4">
                             <select className="form-select border-primary text-primary" value={themeConfig.animation} onChange={(e) => dispatch(toggleAnimation(e.target.value))}>
-                                <option value=" ">None</option>
+                                <option value=" ">Ninguno</option>
                                 <option value="animate__fadeIn">Fade</option>
                                 <option value="animate__fadeInDown">Fade Down</option>
                                 <option value="animate__fadeInUp">Fade Up</option>
