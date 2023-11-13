@@ -1,57 +1,41 @@
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from '@inertiajs/react';
-import { toggleSidebar } from '../../store/themeConfigSlice';
-import AnimateHeight from 'react-animate-height';
-import { useState, useEffect } from 'react';
+import PerfectScrollbar from "react-perfect-scrollbar";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "@inertiajs/react";
+import { toggleSidebar } from "../../store/themeConfigSlice";
+import AnimateHeight from "react-animate-height";
+import { useState, useEffect } from "react";
 
-import IconCaretsDown from '../Icon/IconCaretsDown';
-import IconCaretDown from '../Icon/IconCaretDown';
-import IconMenuDashboard from '../Icon/Menu/IconMenuDashboard';
-import IconMinus from '../Icon/IconMinus';
-import IconMenuChat from '../Icon/Menu/IconMenuChat';
-import IconMenuMailbox from '../Icon/Menu/IconMenuMailbox';
-import IconMenuTodo from '../Icon/Menu/IconMenuTodo';
-import IconMenuNotes from '../Icon/Menu/IconMenuNotes';
-import IconMenuScrumboard from '../Icon/Menu/IconMenuScrumboard';
-import IconMenuContacts from '../Icon/Menu/IconMenuContacts';
-import IconMenuInvoice from '../Icon/Menu/IconMenuInvoice';
-import IconMenuCalendar from '../Icon/Menu/IconMenuCalendar';
-import IconMenuComponents from '../Icon/Menu/IconMenuComponents';
-import IconMenuElements from '../Icon/Menu/IconMenuElements';
-import IconMenuCharts from '../Icon/Menu/IconMenuCharts';
-import IconMenuWidgets from '../Icon/Menu/IconMenuWidgets';
-import IconMenuFontIcons from '../Icon/Menu/IconMenuFontIcons';
-import IconMenuDragAndDrop from '../Icon/Menu/IconMenuDragAndDrop';
-import IconMenuTables from '../Icon/Menu/IconMenuTables';
-import IconMenuDatatables from '../Icon/Menu/IconMenuDatatables';
-import IconMenuForms from '../Icon/Menu/IconMenuForms';
-import IconMenuUsers from '../Icon/Menu/IconMenuUsers';
-import IconMenuPages from '../Icon/Menu/IconMenuPages';
-import IconMenuAuthentication from '../Icon/Menu/IconMenuAuthentication';
-import IconMenuDocumentation from '../Icon/Menu/IconMenuDocumentation';
+import IconCaretsDown from "../Icon/IconCaretsDown";
+import IconCaretDown from "../Icon/IconCaretDown";
+import IconMenuDashboard from "../Icon/Menu/IconMenuDashboard";
+import IconMinus from "../Icon/IconMinus";
+import { menuDashboard } from "../global_menu_config";
 
 const Sidebar = () => {
-    const [currentMenu, setCurrentMenu] = useState('');
+    const [currentMenu, setCurrentMenu] = useState("");
     const [errorSubMenu, setErrorSubMenu] = useState(false);
     const themeConfig = useSelector((state) => state.themeConfig);
     const semidark = useSelector((state) => state.themeConfig.semidark);
     const dispatch = useDispatch();
     const { t } = useTranslation();
+
     const toggleMenu = (value) => {
         setCurrentMenu((oldValue) => {
-            return oldValue === value ? '' : value;
+            return oldValue === value ? "" : value;
         });
     };
 
     useEffect(() => {
-        const selector = document.querySelector('.sidebar ul a[href="' + window.location.pathname + '"]');
+        const selector = document.querySelector(
+            '.sidebar ul a[href="' + window.location.pathname + '"]'
+        );
         if (selector) {
-            selector.classList.add('active');
-            const ul = selector.closest('ul.sub-menu');
+            selector.classList.add("active");
+            const ul = selector.closest("ul.sub-menu");
             if (ul) {
-                let ele = ul.closest('li.menu').querySelectorAll('.nav-link') || [];
+                let ele =
+                    ul.closest("li.menu").querySelectorAll(".nav-link") || [];
                 if (ele.length) {
                     ele = ele[0];
                     setTimeout(() => {
@@ -70,15 +54,26 @@ const Sidebar = () => {
     // }, [location]);
 
     return (
-        <div className={semidark ? 'dark' : ''}>
+        <div className={semidark ? "dark" : ""}>
             <nav
-                className={`sidebar fixed min-h-screen h-full top-0 bottom-0 w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] z-50 transition-all duration-300 ${semidark ? 'text-white-dark' : ''}`}
+                className={`sidebar fixed min-h-screen h-full top-0 bottom-0 w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] z-50 transition-all duration-300 ${
+                    semidark ? "text-white-dark" : ""
+                }`}
             >
                 <div className="bg-white dark:bg-black h-full">
                     <div className="flex justify-between items-center px-4 py-3">
-                        <Link to="/" className="main-logo flex items-center shrink-0">
-                            <img className="w-8 ml-[5px] flex-none" src="/assets/images/logo.svg" alt="logo" />
-                            <span className="text-2xl ltr:ml-1.5 rtl:mr-1.5 font-semibold align-middle lg:inline dark:text-white-light">{t('VRISTO')}</span>
+                        <Link
+                            to="/"
+                            className="main-logo flex items-center shrink-0"
+                        >
+                            <img
+                                className="w-8 ml-[5px] flex-none"
+                                src="/assets/images/logo.svg"
+                                alt="logo"
+                            />
+                            <span className="text-2xl ltr:ml-1.5 rtl:mr-1.5 font-semibold align-middle lg:inline dark:text-white-light">
+                                {t("VRISTO")}
+                            </span>
                         </Link>
 
                         <button
@@ -89,137 +84,19 @@ const Sidebar = () => {
                             <IconCaretsDown className="m-auto rotate-90" />
                         </button>
                     </div>
+
                     <PerfectScrollbar className="h-[calc(100vh-80px)] relative">
                         <ul className="relative font-semibold space-y-0.5 p-4 py-0">
-                            <li className="menu nav-item">
-                                <button type="button" className={`${currentMenu === 'dashboard' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('dashboard')}>
-                                    <div className="flex items-center">
-                                        <IconMenuDashboard
-                                         className="group-hover:!text-primary shrink-0" />
-                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('dashboard')}</span>
-                                    </div>
+                            {menuDashboard.map((item) => (
+                                <RenderMenuSidebar
+                                    key={item.id}
+                                    menuItem={item}
+                                    currentMenu={currentMenu}
+                                    toggleMenu={toggleMenu}
+                                />
+                            ))}
 
-                                    <div className={currentMenu !== 'dashboard' ? 'rtl:rotate-90 -rotate-90' : ''}>
-                                        <IconCaretDown />
-                                    </div>
-                                </button>
-
-                                <AnimateHeight duration={300} height={currentMenu === 'dashboard' ? 'auto' : 0}>
-                                    <ul className="sub-menu text-gray-500">
-                                        <li>
-                                            <Link to="/">{t('sales')}</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/analytics">{t('analytics')}</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/finance">{t('finance')}</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/crypto">{t('crypto')}</Link>
-                                        </li>
-                                    </ul>
-                                </AnimateHeight>
-                            </li>
-
-                            <h2 className="py-3 px-7 flex items-center uppercase font-extrabold bg-white-light/30 dark:bg-dark dark:bg-opacity-[0.08] -mx-4 mb-1">
-                                <IconMinus className="w-4 h-5 flex-none hidden" />
-                                <span>{t('apps')}</span>
-                            </h2>
-
-                            <li className="nav-item">
-                                <ul>
-                                    <li className="nav-item">
-                                        <Link to="/apps/chat" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuChat className="group-hover:!text-primary shrink-0" />
-                                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('chat')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/apps/mailbox" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuMailbox className="group-hover:!text-primary shrink-0" />
-                                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('mailbox')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/apps/todolist" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuTodo className="group-hover:!text-primary shrink-0" />
-                                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('todo_list')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/apps/notes" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuNotes className="group-hover:!text-primary shrink-0" />
-                                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('notes')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/apps/scrumboard" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuScrumboard className="group-hover:!text-primary shrink-0" />
-                                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('scrumboard')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/apps/contacts" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuContacts className="group-hover:!text-primary shrink-0" />
-                                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('contacts')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-
-                                    <li className="menu nav-item">
-                                        <button type="button" className={`${currentMenu === 'invoice' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('invoice')}>
-                                            <div className="flex items-center">
-                                                <IconMenuInvoice className="group-hover:!text-primary shrink-0" />
-                                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('invoice')}</span>
-                                            </div>
-
-                                            <div className={currentMenu !== 'invoice' ? 'rtl:rotate-90 -rotate-90' : ''}>
-                                                <IconCaretDown />
-                                            </div>
-                                        </button>
-
-                                        <AnimateHeight duration={300} height={currentMenu === 'invoice' ? 'auto' : 0}>
-                                            <ul className="sub-menu text-gray-500">
-                                                <li>
-                                                    <Link to="/apps/invoice/list">{t('list')}</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/apps/invoice/preview">{t('preview')}</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/apps/invoice/add">{t('add')}</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/apps/invoice/edit">{t('edit')}</Link>
-                                                </li>
-                                            </ul>
-                                        </AnimateHeight>
-                                    </li>
-
-                                    <li className="nav-item">
-                                        <Link to="/apps/calendar" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuCalendar className="group-hover:!text-primary shrink-0" />
-                                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('calendar')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <h2 className="py-3 px-7 flex items-center uppercase font-extrabold bg-white-light/30 dark:bg-dark dark:bg-opacity-[0.08] -mx-4 mb-1">
+                            {/* <h2 className="py-3 px-7 flex items-center uppercase font-extrabold bg-white-light/30 dark:bg-dark dark:bg-opacity-[0.08] -mx-4 mb-1">
                                 <IconMinus className="w-4 h-5 flex-none hidden" />
                                 <span>{t('user_interface')}</span>
                             </h2>
@@ -702,7 +579,7 @@ const Sidebar = () => {
                                         <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('documentation')}</span>
                                     </div>
                                 </Link>
-                            </li>
+                            </li> */}
                         </ul>
                     </PerfectScrollbar>
                 </div>
@@ -710,5 +587,154 @@ const Sidebar = () => {
         </div>
     );
 };
+
+function RenderMenuSidebar({ menuItem, currentMenu, toggleMenu }) {
+    if (!menuItem.titleSideSecction) {
+        return (
+            <RenderMenuWithoutTitle
+                currentMenu={currentMenu}
+                menuItem={menuItem}
+                toggleMenu={toggleMenu}
+            />
+        );
+    }
+
+    return (
+        <RenderMenuWithTitle
+            currentMenu={currentMenu}
+            menuItem={menuItem}
+            toggleMenu={toggleMenu}
+        />
+    );
+}
+
+function RenderMenuWithoutTitle({ menuItem, currentMenu, toggleMenu }) {
+    return (
+        <li className="menu nav-item">
+            <button
+                type="button"
+                className={`${
+                    currentMenu === menuItem.id ? "active" : ""
+                } nav-link group w-full`}
+                onClick={() => toggleMenu(menuItem.id)}
+            >
+                <div className="flex items-center">
+                    <IconMenuDashboard className="group-hover:!text-primary shrink-0" />
+                    <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">
+                        {menuItem.title}
+                    </span>
+                </div>
+
+                <div
+                    className={
+                        currentMenu !== menuItem.id
+                            ? "rtl:rotate-90 -rotate-90"
+                            : ""
+                    }
+                >
+                    <IconCaretDown />
+                </div>
+            </button>
+
+            <AnimateHeight
+                duration={300}
+                height={currentMenu === menuItem.id ? "auto" : 0}
+            >
+                <ul className="sub-menu text-gray-500">
+                    {menuItem.children.map((item) => (
+                        <li key={item.id}>
+                            <Link to={item.href}>{item.text}</Link>
+                        </li>
+                    ))}
+                </ul>
+            </AnimateHeight>
+        </li>
+    );
+}
+
+function RenderMenuWithTitle({ menuItem, currentMenu, toggleMenu }) {
+    return (
+        <>
+            {(!menuItem.hiddenTitleSideSecction || menuItem.hiddenTitleSideSecction === false) && (
+                <h2 className="py-3 px-7 flex items-center uppercase font-extrabold bg-white-light/30 dark:bg-dark dark:bg-opacity-[0.08] -mx-4 mb-1">
+                    <IconMinus className="w-4 h-5 flex-none hidden" />
+                    <span>{menuItem.titleSideSecction}</span>
+                </h2>
+            )}
+
+            <li className="nav-item">
+                <ul>
+                    {menuItem.children.map((item) => (
+                        <RenderItemMenu
+                            key={item.id}
+                            item={item}
+                            currentMenu={currentMenu}
+                            toggleMenu={toggleMenu}
+                        />
+                    ))}
+                </ul>
+            </li>
+        </>
+    );
+}
+
+function RenderItemMenu({ item, toggleMenu, currentMenu }) {
+    if (item.children) {
+        return (
+            <li className="menu nav-item">
+                <button
+                    type="button"
+                    className={`${
+                        currentMenu === item.id ? "active" : ""
+                    } nav-link group w-full`}
+                    onClick={() => toggleMenu(item.id)}
+                >
+                    <div className="flex items-center">
+                        {item.iconSidebar}
+                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">
+                            {item.text}
+                        </span>
+                    </div>
+
+                    <div
+                        className={
+                            currentMenu !== item.id
+                                ? "rtl:rotate-90 -rotate-90"
+                                : ""
+                        }
+                    >
+                        <IconCaretDown />
+                    </div>
+                </button>
+
+                <AnimateHeight
+                    duration={300}
+                    height={currentMenu === item.id ? "auto" : 0}
+                >
+                    <ul className="sub-menu text-gray-500">
+                        {item.children.map((item) => (
+                            <li key={item.id}>
+                                <Link to={item.href}>{item.text}</Link>
+                            </li>
+                        ))}
+                    </ul>
+                </AnimateHeight>
+            </li>
+        );
+    }
+
+    return (
+        <li className="nav-item">
+            <Link to={item.href} className="group">
+                <div className="flex items-center">
+                    {item.iconSidebar}
+                    <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">
+                        {item.text}
+                    </span>
+                </div>
+            </Link>
+        </li>
+    );
+}
 
 export default Sidebar;
